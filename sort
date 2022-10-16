@@ -1,0 +1,67 @@
+import time
+from random import randint
+
+
+def main():
+    num_of_points = nask()
+
+    my_list = []
+    for i in range(num_of_points):
+        my_list.append(randint(10000, 99999))
+
+    length = len(my_list)
+
+    start_time = time.time()
+    bub_sort(my_list)
+    proc_time = (time.time() - start_time)
+    proc_time = ('%.3f' % proc_time)
+
+    max_sum = 0
+    for j in range(length - 1, length - 11, -1):
+        max_sum = max_sum + int(my_list[j])
+
+    min_sum = 0
+    for k in range(0, 10):
+        min_sum = min_sum + int(my_list[k])
+
+    print(f'Количество чисел в списке {length}')
+    print(f'Процессорное время, которое было затрачено на сортировку в сек {proc_time}')
+    print(f'Сумма 10 максимальных чисел отсортированного списка {max_sum}')
+    print(f'Сумма 10 минимальных чисел отсортированного списка {min_sum}')
+
+
+def nask(amin=20, amax=1000):
+    if amin < 20:
+        amin = 20
+    if amax > 1000:
+        amax = 1000
+
+    while True:
+        num_of_points = input(f'Введите количество точек для сортировки (минимальное значение - {amin}, '
+                              f'максимальное - {amax}): ' + '\n')
+        try:
+            num_of_points = int(num_of_points)
+        except ValueError:
+            print('Не верные данные, повторите ввод')
+        else:
+            if num_of_points < amin:
+                print('Введенное число меньше минимума')
+            elif num_of_points > amax:
+                print('Введенное число больше максимума')
+            else:
+                return num_of_points
+
+
+def bub_sort(my_list):
+    i = 0
+    length = len(my_list)
+    while i < length - 1:
+        j = 0
+        while j < length - 1 - i:
+            if my_list[j] > my_list[j + 1]:
+                my_list[j], my_list[j + 1] = my_list[j + 1], my_list[j]
+            j += 1
+        i += 1
+
+
+main()
